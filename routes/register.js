@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var sendemail = require('./sendMail');
-const check = {} //声明一个对象缓存邮箱和验证码，留着
+const bcrypt = require('bcryptjs');
 const sql = require('../sql');
 const User = require('../sql/model/users');
 const iCode = require('../sql/model/codes');
@@ -13,9 +12,11 @@ router.post('/reg', function(req, res, next) {
   let { username, email, password, password2 } = req.body;
   var oCode = `${req.body.oCode}`
   var datenum = new Date().getTime();
+  var salt = bcrypt.genSaltSync(10);
+  var hash = bcrypt.hashSync(password,salt);
   var json = {
       username: username,
-      password: password,
+      password: hash,
       email: email,
       isLive: "on",
       imgurl: "/static/images/head.jpg",

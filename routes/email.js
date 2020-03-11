@@ -13,7 +13,6 @@ router.get('/', function(req, res, next) {
     var icode = parseInt(('000000' + Math.floor(Math.random() * 999999)).slice(-6)) //生成随机验证码
     var flag = false;
     sql.find(User,{username: username},{_id:0,__v:0}).then((idata) => {
-        console.log(idata)
         if(idata.length > 0 ){
             res.send({data:'0'})
         } else {
@@ -29,7 +28,6 @@ router.get('/', function(req, res, next) {
                             icode: icode,
                         }
                         const code = new Code(json)
-                        console.log(edata)
                         if(edata.length == 0) {
                             sql.insert(code).then(() => { // 存入数据库
                             })
@@ -38,6 +36,20 @@ router.get('/', function(req, res, next) {
                             sql.update(Code,'updateOne',{email: email},{$set:{icode: icode}}).then(() => {
                             })
                         }
+                        //准备发送邮箱
+                        if (!email) {
+                            return res.send('参数错误')
+                        } //email出错时或者为空时
+                        check[email] = icode
+                        //发送邮件
+                        sendemail.sendMail(email, icode, (state) => {
+                            if (state) {
+                                return res.send("发送成功")
+                            } else {
+                                return res.send("失败")
+                            }
+                            
+                        })
                     })
                 }
             }).catch(()=> {
@@ -45,19 +57,7 @@ router.get('/', function(req, res, next) {
             })
         }
     })
-        if (!email) {
-            return res.send('参数错误')
-        } //email出错时或者为空时
-        check[email] = icode
-        //发送邮件
-        sendemail.sendMail(email, icode, (state) => {
-            if (state) {
-                return res.send("发送成功")
-            } else {
-                return res.send("失败")
-            }
-            
-        })
+
 })
 
 module.exports = router;

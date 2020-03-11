@@ -34,19 +34,21 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg"><%- yes %>   请使用会员账户登录</p>
+    <p class="login-box-msg">请使用会员账户登录</p>
 
-    <form action="/index2.html" method="post">
+    <form action="/loginAction" method="post">
       <div class="form-group has-feedback">
         <label class="control-label" for="inputError" style="opacity: 0;"><i class="fa "></i></label>
         <input id="email" type="email" class="form-control" name="email" placeholder="电子邮件" >
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <label class="control-label" for="inputError" style="opacity: 0;"><i class="fa "></i></label>
+      <div class="<%- yes == '0' ? 'form-group has-feedback has-error' : 'form-group has-feedback' %>">
+        <label class="control-label" for="inputError" style="<%- yes == '0' ? 'opacity: 1;' : 'opacity: 0;' %>"><i class="<%- yes == '0' ? 'fa fa-times-circle-o' : 'fa' %>"></i><%- yes == '0' ? '密码错误' : '' %></label>
         <input id="form-password" type="password" class="form-control" name="password" placeholder="密码" >
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
+   
+      
       <div class="row">
         <div class="col-xs-8">
           <!-- <div class="checkbox icheck">
@@ -59,7 +61,7 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <span id="submit" class="btn btn-primary btn-block btn-flat">登录</span>
+          <button id="submit" class="btn btn-primary btn-block btn-flat">登录</button>
         </div>
         <!-- /.col -->
       </div>
@@ -99,49 +101,49 @@
         $('form').find('div').eq(i).find('label').html(`<i class="fa ${iClass}"></i>`+`${dtxt}`);
         $('form').find('div').eq(i).find('label').css({opacity: '1'});
     }
-    $('#submit').on('click',function () { 
-      var email = $('#email').val();//获取输入框的邮箱
-      var password = $('#form-password').val();//获取输入的密码
-      if(email == '') {
-        attrindex(0,'has-error','fa-times-circle-o','邮箱不能为空');
-        return;
-      } else {
-        attrindex(0,'has-success','fa-check','');
-      }
-      if (password == '') {
-        attrindex(1,'has-error','fa-times-circle-o','密码不能为空');
-        return;
-      } else {
-        attrindex(1,'has-success','fa-check','');
-      }
-      $.ajax({  
-        type: "POST",  
-        url: "/login",
-        contentType: 'application/x-www-form-urlencoded;charset=utf-8',  
-        data: {
-          email: email,
-          password: password
-        },  
-        dataType: "json",  
-        success: function(data){  
-            console.log(data); 
-            switch(data.code){
-                case "0":
-                    attrindex(0,'has-error','fa-times-circle-o',`${data.text}`);
-                    break;
-                case "1":
-                    attrindex(1,'has-error','fa-times-circle-o',`${data.text}`);
-                    break;
-                default:
-                    window.location.href = "/"
-                    break;
-            }
-        },  
-        error:function(error){  
-            console.log(error);  
-        }  
-      });
-    })
+    // $('#submit').on('click',function () { 
+    //   var email = $('#email').val();//获取输入框的邮箱
+    //   var password = $('#form-password').val();//获取输入的密码
+    //   if(email == '') {
+    //     attrindex(0,'has-error','fa-times-circle-o','邮箱不能为空');
+    //     return;
+    //   } else {
+    //     attrindex(0,'has-success','fa-check','');
+    //   }
+    //   if (password == '') {
+    //     attrindex(1,'has-error','fa-times-circle-o','密码不能为空');
+    //     return;
+    //   } else {
+    //     attrindex(1,'has-success','fa-check','');
+    //   }
+      // $.ajax({  
+      //   type: "POST",  
+      //   url: "/login",
+      //   contentType: 'application/x-www-form-urlencoded;charset=utf-8',  
+      //   data: {
+      //     email: email,
+      //     password: password
+      //   },  
+      //   dataType: "json",  
+      //   success: function(data){  
+      //       console.log(data); 
+      //       switch(data.code){
+      //           case "0":
+      //               attrindex(0,'has-error','fa-times-circle-o',`${data.text}`);
+      //               break;
+      //           case "1":
+      //               attrindex(1,'has-error','fa-times-circle-o',`${data.text}`);
+      //               break;
+      //           default:
+      //               window.location.href = "/"
+      //               break;
+      //       }
+      //   },  
+      //   error:function(error){  
+      //       console.log(error);  
+      //   }  
+      // });
+    // })
   });
 </script>
 </body>
