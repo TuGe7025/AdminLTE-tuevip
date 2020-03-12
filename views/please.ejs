@@ -41,11 +41,15 @@
                 </div>
                 <% for(var j = 0; j < data[i].list.length; j++) {%>
                   
-                <div class="hf-list-con" style="display: block;">
+                <div class="hf-list-con" style="display: block;"  data-comment-id="<%= data[i].list[j]._id %>">
                     <div class="all-pl-con">
                         <div class="pl-text hfpl-text clearfix">
                             <a href="#" class="comment-size-name">tuge : </a>
-                            <span class="my-pl-con">回复<a href="#" class="atName">@<%= data[i].list[j].from_uid %></a> :  <%= data[i].list[j].content %></span>
+                            <% if(data[i].from_uid == data[i].list[j].from_uid) { %>
+                                <span class="my-pl-con"><%= data[i].list[j].content %></span>
+                            <% } else { %>
+                                <span class="my-pl-con">回复<a href="#" class="atName">@<%= data[i].list[j].from_uid %></a> :  <%= data[i].list[j].content %></span>
+                            <% } %>
                         </div>
                         <div class="date-dz"> 
                             <span class="date-dz-left pull-left comment-time"> <%= data[i].list[j].create_time %></span> 
@@ -54,7 +58,7 @@
                                 <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a> 
                                 <span class="pull-left date-dz-line">|</span> 
                                 <a href="javascript:;" class="date-dz-z pull-left">
-                                    <i class="date-dz-z-click-red"></i>赞 (<i class="z-num"><%= data[i].praise_num %></i>)</a> 
+                                    <i class="date-dz-z-click-red"></i>赞 (<i class="z-num"><%= data[i].list[j].praise_num %></i>)</a> 
                                 </div> 
                             </div>
                         </div>
@@ -72,30 +76,7 @@
 <script>
     $(function(){
         // console.log(<%- wdata %>)
-        var data = <%- wdata %>;
      
-        function listPush(d){
-            var newData = [];
-            d.forEach(function(v, i){
-                var n;
-                for (var i = 0; i < newData.length; i++) {
-                    var t = newData[i];
-                    if (t._id==v.comment_id) {
-                        n = t;
-                        break;
-                    }
-                }
-                if (!n) {
-                    n = {list:[], _id:v._id ,from_uid: v.from_uid, create_time: v.create_time, praise_num: v.praise_num, content: v.content};
-                    newData.push(n);
-                }
-                if(v.comment_id){
-                    n.list.push(v);
-                }
-            })
-            return newData
-        }
-        console.log(data);
     })
 </script>
 <!--textarea高度自适应-->
@@ -270,7 +251,6 @@
                         console.log(error);  
                     }  
                     });
-                    console.log(now,oAt)
             });
         }
     });
@@ -298,11 +278,114 @@
             $(this).removeClass('date-dz-z-click red');
             $(this).find('.z-num').html(zNum);
             $(this).find('.date-dz-z-click-red').removeClass('red');
+            if($(this).parents('.hf-list-con').length == 0){
+                var comment_id = $(this).parents('.comment-show-con').attr('data-comment-id');
+                $.ajax({  
+                    type: "POST",
+                    url: "/comment/noDz",
+                    contentType: 'application/x-www-form-urlencoded;charset=utf-8',  
+                    data: {
+                        comment_id: comment_id, //评论id
+                        praise_num: zNum, //赞数量
+                    },  
+                    dataType: "json",  
+                    success: function(data){
+                        switch(data.code){
+                            case "0":
+                                console.log('取消点赞失败！');
+                                break;
+                            default:
+                                console.log(data);
+                                break;
+                        }
+                    },  
+                    error:function(error){  
+                        console.log(error);  
+                    }  
+                });
+            
+            } else {
+                var writeback_id = $(this).parents('.hf-list-con').attr('data-comment-id');
+                $.ajax({  
+                    type: "POST",
+                    url: "/comment/noDz",
+                    contentType: 'application/x-www-form-urlencoded;charset=utf-8',  
+                    data: {
+                        comment_id: writeback_id, //回复id
+                        praise_num: zNum, //赞数量
+                    },  
+                    dataType: "json",  
+                    success: function(data){
+                        switch(data.code){
+                            case "0":
+                                console.log('取消点赞失败！');
+                                break;
+                            default:
+                                console.log(data);
+                                break;
+                        }
+                    },  
+                    error:function(error){  
+                        console.log(error);  
+                    }  
+                });
+            }
         }else {
             zNum++;
             $(this).addClass('date-dz-z-click');
             $(this).find('.z-num').html(zNum);
             $(this).find('.date-dz-z-click-red').addClass('red');
+            if($(this).parents('.hf-list-con').length == 0){
+                var comment_id = $(this).parents('.comment-show-con').attr('data-comment-id');
+                $.ajax({  
+                    type: "POST",
+                    url: "/comment/okDz",
+                    contentType: 'application/x-www-form-urlencoded;charset=utf-8',  
+                    data: {
+                        comment_id: comment_id, //评论id
+                        praise_num: zNum, //赞数量
+                    },  
+                    dataType: "json",  
+                    success: function(data){
+                        switch(data.code){
+                            case "0":
+                                console.log('取消点赞失败！');
+                                break;
+                            default:
+                                console.log(data);
+                                break;
+                        }
+                    },  
+                    error:function(error){  
+                        console.log(error);  
+                    }  
+                });
+            } else {
+                var writeback_id = $(this).parents('.hf-list-con').attr('data-comment-id');
+                $.ajax({  
+                    type: "POST",
+                    url: "/comment/okDz",
+                    contentType: 'application/x-www-form-urlencoded;charset=utf-8',  
+                    data: {
+                        comment_id: writeback_id, //回复id
+                        praise_num: zNum, //赞数量
+                    },  
+                    dataType: "json",  
+                    success: function(data){
+                        switch(data.code){
+                            case "0":
+                                console.log('取消点赞失败！');
+                                break;
+                            default:
+                                console.log(data);
+                                break;
+                        }
+                    },  
+                    error:function(error){  
+                        console.log(error);  
+                    }  
+                });
+            }
         }
     })
 </script>

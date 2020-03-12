@@ -15,11 +15,12 @@ module.exports = {
             })
         })
     },
-    update: function (col, type, whereObj, updateObj) {
+    update: function (col, whereObj, updateObj, type) {
+        type = type || 'updateOne';
         return new Promise((resolve, reject) => {
             col[type](whereObj, updateObj, err => {
                 if (err) throw err;
-                resolve();
+                resolve('已更新');
             })
         })
     },

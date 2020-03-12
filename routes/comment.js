@@ -5,6 +5,7 @@ const sql = require('../sql');
 const Comment = require('../sql/model/comments');
 const Writebacks = require('../sql/model/writebacks');
 const User = require('../sql/model/users');
+var ObjectId = require('mongodb').ObjectId;
 router.post('/', function(req, res, next) {
     console.log(req.body)
     var time = new Date().getTime();
@@ -57,6 +58,26 @@ router.post('/hf', function(req, res, next) {
     })
 
 })
+router.post('/okDz', function(req, res, next){
+    var {comment_id,praise_num} = req.body;
+    updateDz(comment_id,praise_num)
+})
+router.post('/noDz', function(req, res, next){
+    var {comment_id,praise_num} = req.body;
+    updateDz(comment_id,praise_num)
+})
+function updateDz(id,num){
+    var _id = ObjectId(id);
+    sql.find(Comment,{_id: _id}).then((data)=> { //查找数据库取出用户头像
+        if(data.length != 0){
+            sql.update(Comment,{_id:_id},{$set:{praise_num:num}}).then(()=>{
+            })
+        } else {
+            sql.update(Writebacks,{_id:_id},{$set:{praise_num:num}}).then(()=>{
+            })
+        }
+    })
+}
 function getMyDate(str) {
     var oDate = new Date(str),
     oYear = oDate.getFullYear(),
