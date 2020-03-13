@@ -397,7 +397,9 @@ if(!norunFlag){
 		function getEvent() {
 			return window.event || arguments.callee.caller.arguments[0];
 		}
+
 		var smcc = document.getElementById("landlord");
+		var smcc ;
 		var moveX = 0;
 		var moveY = 0;
 		var moveBottom = 0;
@@ -405,48 +407,50 @@ if(!norunFlag){
 		var moveable = false;
 		var docMouseMoveEvent = document.onmousemove;
 		var docMouseUpEvent = document.onmouseup;
-		smcc.onmousedown = function(){
-			var ent = getEvent();
-			moveable = true;
-			moveX = ent.clientX;
-			moveY = ent.clientY;
-			var obj = smcc;
-			moveBottom = parseInt(obj.style.bottom);
-			moveLeft = parseInt(obj.style.left);
-			if(isFirefox=navigator.userAgent.indexOf("Firefox")>0){
-				window.getSelection().removeAllRanges();
-			}			
-			document.onmousemove = function(){
-				if(moveable){
-					var ent = getEvent();
-					var x = moveLeft + ent.clientX - moveX;
-					var y = moveBottom +  (moveY - ent.clientY);
-					obj.style.left = x + "px";
-					obj.style.bottom = y + "px";
-				}
+		if(!smcc){		// 是否移动角色
+			smcc.onmousedown = function(){
+				var ent = getEvent();
+				moveable = true;
+				moveX = ent.clientX;
+				moveY = ent.clientY;
+				var obj = smcc;
+				moveBottom = parseInt(obj.style.bottom);
+				moveLeft = parseInt(obj.style.left);
+				if(isFirefox=navigator.userAgent.indexOf("Firefox")>0){
+					window.getSelection().removeAllRanges();
+				}			
+				document.onmousemove = function(){
+					if(moveable){
+						var ent = getEvent();
+						var x = moveLeft + ent.clientX - moveX;
+						var y = moveBottom +  (moveY - ent.clientY);
+						obj.style.left = x + "px";
+						obj.style.bottom = y + "px";
+					}
+				};
+				document.onmouseup = function(){
+					if(moveable){
+						var historywidth = obj.style.left;
+						var historyheight = obj.style.bottom;
+						historywidth = historywidth.replace('px', '');
+						historyheight = historyheight.replace('px', '');
+						sessionStorage.setItem("historywidth", historywidth);
+						sessionStorage.setItem("historyheight", historyheight);
+						document.onmousemove = docMouseMoveEvent;
+						document.onmouseup = docMouseUpEvent;
+						moveable = false; 
+						moveX = 0;
+						moveY = 0;
+						moveBottom = 0;
+						moveLeft = 0;
+					}
+				};
 			};
-			document.onmouseup = function(){
-				if(moveable){
-					var historywidth = obj.style.left;
-					var historyheight = obj.style.bottom;
-					historywidth = historywidth.replace('px', '');
-					historyheight = historyheight.replace('px', '');
-					sessionStorage.setItem("historywidth", historywidth);
-					sessionStorage.setItem("historyheight", historyheight);
-					document.onmousemove = docMouseMoveEvent;
-					document.onmouseup = docMouseUpEvent;
-					moveable = false; 
-					moveX = 0;
-					moveY = 0;
-					moveBottom = 0;
-					moveLeft = 0;
-				}
-			};
-		};
+		}
 	}
 	$(document).ready(function() {
 		var AIimgSrc = [
-			home_Path + message_Path + "model/rem/remu2048/texture_00.png"
+			message_Path + "model/rem/remu2048/texture_00.png"
 		]
 		var images = [];
 		var imgLength = AIimgSrc.length;

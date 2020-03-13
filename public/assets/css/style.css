@@ -1249,6 +1249,7 @@ body {
   position: relative;
 }
 .nav-menu li:hover > a {
+  text-indent: 16px;
   color: #FF7171;
 }
 .nav-menu li.current-menu-item a {

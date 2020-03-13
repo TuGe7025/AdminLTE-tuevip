@@ -1,7 +1,7 @@
 {
     "mouseover": [
         {
-            "selector": "#showInfoBtn",
+            "selector": "#input-group-append",
             "text": ["查看最新吐槽和站内信息"]
         },
 		{
@@ -25,9 +25,18 @@
             "text": ["要看看 {text} 么？"]
         },
         {
-            "selector": ".searchbox",
+            "selector": ".search-toggle-open",
             "text": ["在找什么东西呢，需要帮忙吗？"]
+        },
+        {
+            "selector": "#live2d",
+            "text": ["那里...不可以啦！"]
+        },
+        {
+            "selector": ".sub-menu li",
+            "text": ["这里面可有趣啦！要进去看看吗？"]
         }
+        
     ],
     "click": [
         {

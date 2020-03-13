@@ -280,7 +280,7 @@ We may release future updates so it will overwrite this file. it's better and sa
   /* 08: Preloader
   ==============================================*/
   $(window).on('load', function () {
-    $('.preloader').fadeOut(2000);
+    $('.preloader').fadeOut(1000);
   });
 
   /* 09: Back to Top
