@@ -68,7 +68,7 @@ router.post('/noDz', function(req, res, next){
 })
 function updateDz(id,num){
     var _id = ObjectId(id);
-    sql.find(Comment,{_id: _id}).then((data)=> { //查找数据库取出用户头像
+    sql.find(Comment,{_id: _id}).then((data)=> { 
         if(data.length != 0){
             sql.update(Comment,{_id:_id},{$set:{praise_num:num}}).then(()=>{
             })

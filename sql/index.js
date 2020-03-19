@@ -25,6 +25,7 @@ module.exports = {
         })
     },
     find (col, whereObj, showObj) {
+        console.log(col)
         return new Promise((resolve, reject) => {
             col.find(whereObj, showObj).exec((err, data) => {
                 if (err) throw err;

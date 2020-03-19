@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>这是一个后台</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="/bower_components/bootstrap//dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect. -->
+  <link rel="stylesheet" href="/dist/css/skins/skin-blue.min.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <link rel="stylesheet" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+
+<link rel="stylesheet" type="text/css" href="/wysiwyg/src/wysiwyg-editor.css" />
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/comment.css">
+  <link rel="stylesheet" type="text/css" href="/tags/css/tag.css" />
+  
+  <!-- Google Font -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <%- include('./header.ejs') %>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>TuGe7025</p>
+          <!-- Status -->
+          <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+        </div>
+      </div>
+      <!-- Sidebar Menu -->
+     <%- include('./menu.ejs') %>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        添加文章
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>文章目录</a></li>
+        <li class="active">添加</li>
+      </ol>
+
+
+    <!-- Main content -->
+    <div class="box box-info"  style="width:900px; margin: 30px;">
+      
+      <!-- form start -->
+      <div class="form-horizontal" >
+        <div class="box-body">
+          <div class="form-group">
+            <label for="inputTitle" class="col-sm-2 control-label" >标题</label>
+
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputTitle" name="title" value="" placeholder="待输入...">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="Inputimg" class="col-sm-2 control-label">添加封面</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="Inputimg" value="" placeholder="待输入图片地址...">
+            </div>
+          </div>
+          <div class="form-group">
+            
+            <label for="InputTags" class="col-sm-2 control-label">添加标签</label>
+            <div class="col-sm-10">
+              <p>在下面输入框中输入标签值，并且回车，如果添加多个标签可用逗号：','或者'，'分开</p>
+              <input type="text" id="InputTags" placeholder="添加标签" >
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2  control-label">分类</label>
+            <div class="col-sm-2">
+              <select class="form-control genre">
+                <option value="0">帖子</option>
+                <option value="1">日志</option>
+              </select>
+            </div>
+           
+          </div>
+          <div class="form-group">
+            <div style="width:860px; margin: 30px;">
+              <textarea id="editor1" name="editor" placeholder="输入点东西吧..." style="display: none;">
+              </textarea>
+              <!-- <div contenteditable="true" class="wysiwyg-editor"> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <a href="/journal" type="submit" class="btn btn-default">返回</a>
+          <button id="artAdd_sub" type="submit" class="btn btn-info pull-right">提交</button>
+        </div>
+        <!-- /.box-footer -->
+      </div>
+    </div>
+    <!-- <div class="box">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Compose New Message</h3>
+          </div>
+          <div class="box-body">
+            <div class="form-group">
+              <input class="form-control" placeholder="标题:">
+            </div>
+           
+            <div class="form-group">
+                  <textarea id="compose-textarea" class="form-control" style="height: 300px; display: block;"></textarea>
+                 
+            </div>
+            <div class="form-group">
+              <div class="btn btn-default btn-file">
+                <i class="fa fa-paperclip"></i> Attachment
+                <input type="file" name="attachment">
+              </div>
+              <p class="help-block">Max. 32MB</p>
+            </div>
+          </div>
+          <div class="box-footer">
+            <div class="pull-right">
+             
+              <button type="submit" class="btn btn-primary"><i class="fa"></i>提交</button>
+            </div>
+            <button type="reset" class="btn btn-default"><i class="fa fa-times"></i> 取消内容</button>
+          </div>
+
+        </div>
+
+      </div> -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <%- include('./footer.ejs') %>
+
+  <!-- Control Sidebar -->
+  <%- include('./sideabar.ejs') %>
+  <!-- /.control-sidebar -->
+  
+  <!-- Add the sidebar's background. This div must be placed
+  immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
+<!-- jQuery 3 -->
+<!-- <script src="/bower_components/jquery/dist/jquery.min.js"></script> -->
+<script src="/js/jquery-1.12.0.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.min.js"></script>
+<script src="/js/jquery.flexText.js"></script>
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. -->
+<script type="text/javascript" src="/wysiwyg/src/wysiwyg.js"></script>
+
+<script type="text/javascript" src="/wysiwyg/src/wysiwyg-editor.js"></script>
+</body>
+<script>
+  $(function(){
+    var token = sessionStorage.getItem('istoken');
+    $.ajax({  
+        type: "POST",  
+        url: "/checkUser",
+        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+        data: {
+          token:token
+        },
+        dataType: "json",  
+        success: function(data){
+            switch(data.status){
+                case 10010:
+                    window.location.href = "/login"
+                    break;
+                default:
+                    // window.location.href = "/"
+                    break;
+            }
+        },  
+        error:function(error){  
+            console.log(error);  
+        }  
+      });
+  })
+</script>
+<!-- iCheck -->
+<!-- <script src="/plugins/iCheck/icheck.min.js"></script> -->
+<!-- Bootstrap WYSIHTML5 -->
+<!-- <script src="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script> -->
+<!-- Page Script -->
+<script>
+  $(function () {
+    //Add text editor
+    $('#artAdd_sub').on('click',function(){
+      var tags = $('.tagList').children()
+      var tagsArr = [];
+      var genre = $('.genre option:selected')
+      for(let i = 0; i < tags.length; i ++) {
+        tagsArr.push($(tags[i]).find('span').html())
+      }
+      // console.log($('#inputTitle').val()) //标题
+      // console.log($('#Inputimg').val());//封面地址
+      // console.log(genre.val()) //获取分类
+      // console.log(tagsArr);//标签数组
+      // console.log($('.wysiwyg-editor').html()) // 获取主体内容
+      let json = {
+        title_id: $('#inputTitle').val(), // 文章标题
+        img: $('#Inputimg').val(), //封面地址 
+        content: $('.wysiwyg-editor').html(), // 发表内容
+        classify: genre.val(), //分类
+        tagslabel: tagsArr, // 标签
+        from_uid: 'TuGe7025', // 发表用户
+      }
+      console.log(JSON.stringify(json))
+      $.ajax({
+        type: "POST",  
+        url: "/journal/add",
+        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+        dataType: "json",
+        data: {
+          text:JSON.stringify(json)
+        },
+        success: function(data){
+          switch(data.code){
+            case '0':
+                console.log('新增失败')
+                break;
+              default:
+                window.location.href = "/journal"
+                break;
+            }
+        },  
+        error:function(error){  
+            console.log(error);  
+        }  
+      });
+    })
+  });
+</script>
+<script type="text/javascript">
+
+  $(document).ready(function(){
+  
+      // Full featured editor
+  
+      $('#editor1').each( function(index, element)
+  
+      {
+          $(element).wysiwyg({
+  
+              classes: 'some-more-classes',
+  
+              position: index == 0 ? 'top-selection' : (index == 1 ? 'bottom' : 'selection'),
+  
+              buttons: {
+  
+                  // Dummy-HTML-Plugin
+  
+                  dummybutton1: index != 1 ? false : {
+  
+                      html: $('<input id="submit" type="button" value="bold" />').click(function(){
+  
+                                  // We simply make 'bold'
+  
+                                  if( $(element).wysiwyg('selected-html') )
+  
+                                      $(element).wysiwyg('bold');
+  
+                                  else
+  
+                                      alert( 'Please selection some text' );
+  
+                              }),
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: false    // wanted on selection
+  
+                  },
+  
+                  // Dummy-Button-Plugin
+  
+                  dummybutton2: index != 1 ? false : {
+  
+                      title: 'Dummy',
+  
+                      image: '\uf1e7',
+  
+                      click: function( $button ) {
+  
+                              alert('Do something');
+  
+                             },
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: false    // wanted on selection
+  
+                  },
+  
+                  // Smiley-Plugin
+  
+                  smilies: {
+  
+                      title: 'Smilies',
+  
+                      image: '\uf118', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      popup: function( $popup, $button, $editor ) {
+  
+                              var list_smilies = [
+  
+                                      '<img src="smiley/afraid.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/amorous.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/angel.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/angry.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/bored.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/cold.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/confused.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/cross.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/crying.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/devil.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/disappointed.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/dont-know.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/drool.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/embarrassed.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/excited.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/excruciating.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/eyeroll.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/happy.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/hot.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/hug-left.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/hug-right.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/hungry.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/invincible.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/kiss.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/lying.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/meeting.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/nerdy.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/neutral.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/party.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/pirate.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/pissed-off.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/question.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/sad.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/shame.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/shocked.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/shut-mouth.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/sick.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/silent.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/sleeping.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/sleepy.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/stressed.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/thinking.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/tongue.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/uhm-yeah.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/wink.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/working.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/bathing.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/beer.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/boy.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/camera.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/chilli.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/cigarette.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/cinema.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/coffee.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/girl.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/console.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/grumpy.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/in_love.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/internet.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/lamp.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/mobile.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/mrgreen.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/musical-note.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/music.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/phone.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/plate.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/restroom.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/rose.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/search.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/shopping.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/star.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/studying.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/suit.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/surfing.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/thunder.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/tv.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/typing.png" width="16" height="16" alt="" />',
+  
+                                      '<img src="smiley/writing.png" width="16" height="16" alt="" />'
+  
+                              ];
+  
+                              var $smilies = $('<div/>').addClass('wysiwyg-toolbar-smilies')
+  
+                                                        .attr('unselectable','on');
+  
+                              $.each( list_smilies, function(index,smiley){
+  
+                                  if( index != 0 )
+  
+                                      $smilies.append(' ');
+  
+                                  var $image = $(smiley).attr('unselectable','on');
+  
+                                  // Append smiley
+  
+                                  var imagehtml = ' '+$('<div/>').append($image.clone()).html()+' ';
+  
+                                  $image
+  
+                                      .css({ cursor: 'pointer' })
+  
+                                      .click(function(event){
+  
+                                          $(element).wysiwyg('inserthtml',imagehtml);
+  
+                                          // do not close popup
+  
+                                          //$(element).wysiwyg('close-popup');
+  
+                                      })
+  
+                                      .appendTo( $smilies );
+  
+                              });
+  
+                              $smilies.css({ maxWidth: parseInt($editor.width()*0.95)+'px' });
+  
+                              $popup.append( $smilies );
+  
+                              // Smilies do not close on click, so force the popup-position to cover the toolbar
+  
+                              var $toolbar = $button.parents( '.wysiwyg-toolbar' );
+  
+                              if( ! $toolbar.length ) // selection toolbar?
+  
+                                  return ;
+  
+                              var left = 0,
+  
+                                  top = 0,
+  
+                                  node = $toolbar.get(0);
+  
+                              while( node )
+  
+                              {
+  
+                                  left += node.offsetLeft;
+  
+                                  top += node.offsetTop;
+  
+                                  node = node.offsetParent;
+  
+                              }
+  
+                              left += parseInt( ($toolbar.outerWidth() - $popup.outerWidth()) / 2 );
+  
+                              if( $toolbar.hasClass('wysiwyg-toolbar-top') )
+  
+                                  top -= $popup.height() - parseInt($button.outerHeight() * 1/4);
+  
+                              else
+  
+                                  top += parseInt($button.outerHeight() * 3/4);
+  
+                              $popup.css({ left: left + 'px',
+  
+                                           top: top + 'px'
+  
+                                         });
+  
+                              // prevent applying position
+  
+                              return false;
+  
+                             },
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: index == 2 ? true : false    // wanted on selection
+  
+                  },
+  
+                  insertimage: {
+  
+                      title: 'Insert image',
+  
+                      image: '\uf030', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: false    // wanted on selection
+  
+                  },
+  
+                  insertlink: {
+  
+                      title: 'Insert link',
+  
+                      image: '\uf08e' // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                  },
+  
+                  // Fontanme + Fontsize Plugin
+  
+                  fontname: index == 1 ? false : {
+  
+                      title: 'Font',
+  
+                      image: '\uf031', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      popup: function( $popup, $button, $editor ) {
+  
+                              var list_fontnames = {
+  
+                                      // Name : Font
+  
+                                      'Arial, Helvetica' : 'Arial,Helvetica',
+  
+                                      'Verdana'          : 'Verdana,Geneva',
+  
+                                      'Georgia'          : 'Georgia',
+  
+                                      'Courier New'      : 'Courier New,Courier',
+  
+                                      'Times New Roman'  : 'Times New Roman,Times'
+  
+                                  };
+  
+                              var $list = $('<div/>').addClass('wysiwyg-toolbar-list')
+  
+                                                     .attr('unselectable','on');
+  
+                              $.each( list_fontnames, function( name, font ){
+  
+                                  var $link = $('<a/>').attr('href','#')
+  
+                                                      .css( 'font-family', font )
+  
+                                                      .html( name )
+  
+                                                      .click(function(event){
+  
+                                                          $(element).wysiwyg('fontname',font);
+  
+                                                          $(element).wysiwyg('close-popup');
+  
+                                                          // prevent link-href-#
+  
+                                                          event.stopPropagation();
+  
+                                                          event.preventDefault();
+  
+                                                          return false;
+  
+                                                      });
+  
+                                  $list.append( $link );
+  
+                              });
+  
+                              $popup.append( $list );
+  
+                             },
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: index == 0 ? true : false    // wanted on selection
+  
+                  },
+  
+                  fontsize: index == 1 ? false : {
+  
+                      title: 'Size',
+  
+                      image: '\uf034', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      popup: function( $popup, $button, $editor ) {
+  
+                              var list_fontsizes = {
+  
+                                  // Name : Size
+  
+                                  'Huge'    : 7,
+  
+                                  'Larger'  : 6,
+  
+                                  'Large'   : 5,
+  
+                                  'Normal'  : 4,
+  
+                                  'Small'   : 3,
+  
+                                  'Smaller' : 2,
+  
+                                  'Tiny'    : 1
+  
+                              };
+  
+                              var $list = $('<div/>').addClass('wysiwyg-toolbar-list')
+  
+                                                     .attr('unselectable','on');
+  
+                              $.each( list_fontsizes, function( name, size ){
+  
+                                  var $link = $('<a/>').attr('href','#')
+  
+                                                      .css( 'font-size', (8 + (size * 3)) + 'px' )
+  
+                                                      .html( name )
+  
+                                                      .click(function(event){
+  
+                                                          $(element).wysiwyg('fontsize',size);
+  
+                                                          $(element).wysiwyg('close-popup');
+  
+                                                          // prevent link-href-#
+  
+                                                          event.stopPropagation();
+  
+                                                          event.preventDefault();
+  
+                                                          return false;
+  
+                                                      });
+  
+                                  $list.append( $link );
+  
+                              });
+  
+                              $popup.append( $list );
+  
+                             }
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      //showselection: true    // wanted on selection
+  
+                  },
+  
+                  bold: {
+  
+                      title: 'Bold (Ctrl+B)',
+  
+                      image: '\uf032', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      hotkey: 'b'
+  
+                  },
+  
+                  italic: {
+  
+                      title: 'Italic (Ctrl+I)',
+  
+                      image: '\uf033', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      hotkey: 'i'
+  
+                  },
+  
+                  underline: {
+  
+                      title: 'Underline (Ctrl+U)',
+  
+                      image: '\uf0cd', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      hotkey: 'u'
+  
+                  },
+  
+                  strikethrough: {
+  
+                      title: 'Strikethrough (Ctrl+S)',
+  
+                      image: '\uf0cc', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      hotkey: 's'
+  
+                  },
+  
+                  forecolor: {
+  
+                      title: 'Text color',
+  
+                      image: '\uf1fc' // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                  },
+  
+                  highlight: {
+  
+                      title: 'Background color',
+  
+                      image: '\uf043' // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                  },
+  
+                  alignleft: index != 0 ? false : {
+  
+                      title: 'Left',
+  
+                      image: '\uf036', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: false    // wanted on selection
+  
+                  },
+  
+                  aligncenter: index != 0 ? false : {
+  
+                      title: 'Center',
+  
+                      image: '\uf037', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: false    // wanted on selection
+  
+                  },
+  
+                  alignright: index != 0 ? false : {
+  
+                      title: 'Right',
+  
+                      image: '\uf038', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: false    // wanted on selection
+  
+                  },
+  
+                  alignjustify: index != 0 ? false : {
+  
+                      title: 'Justify',
+  
+                      image: '\uf039', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: false    // wanted on selection
+  
+                  },
+  
+                  subscript: index == 1 ? false : {
+  
+                      title: 'Subscript',
+  
+                      image: '\uf12c', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: true    // wanted on selection
+  
+                  },
+  
+                  superscript: index == 1 ? false : {
+  
+                      title: 'Superscript',
+  
+                      image: '\uf12b', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: true    // wanted on selection
+  
+                  },
+  
+                  indent: index != 0 ? false : {
+  
+                      title: 'Indent',
+  
+                      image: '\uf03c', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: false    // wanted on selection
+  
+                  },
+  
+                  outdent: index != 0 ? false : {
+  
+                      title: 'Outdent',
+  
+                      image: '\uf03b', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: false    // wanted on selection
+  
+                  },
+  
+                  orderedList: index != 0 ? false : {
+  
+                      title: 'Ordered list',
+  
+                      image: '\uf0cb', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: false    // wanted on selection
+  
+                  },
+  
+                  unorderedList: index != 0 ? false : {
+  
+                      title: 'Unordered list',
+  
+                      image: '\uf0ca', // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                      //showstatic: true,    // wanted on the toolbar
+  
+                      showselection: false    // wanted on selection
+  
+                  },
+  
+                  removeformat: {
+  
+                      title: 'Remove format',
+  
+                      image: '\uf12d' // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+                  }
+  
+              },
+  
+              // Submit-Button
+  
+              submit: {
+  
+                  title: 'Submit',
+  
+                  image: '\uf00c' // <img src="path/to/image.png" width="16" height="16" alt="" />
+  
+              },
+  
+              // Other properties
+  
+              dropfileclick: 'Drop image or click',
+  
+              placeholderUrl: 'www.example.com',
+  
+              maxImageSize: [600,200]
+  
+              /*
+  
+              onImageUpload: function( insert_image ) {
+  
+                              // Used to insert an image without XMLHttpRequest 2
+  
+                              // A bit tricky, because we can't easily upload a file
+  
+                              // via '$.ajax()' on a legacy browser.
+  
+                              // You have to submit the form into to a '<iframe/>' element.
+  
+                              // Call 'insert_image(url)' as soon as the file is online
+  
+                              // and the URL is available.
+  
+                              // Best way to do: http://malsup.com/jquery/form/
+  
+                              // For example:
+  
+                              //$(this).parents('form')
+  
+                              //       .attr('action','/path/to/file')
+  
+                              //       .attr('method','POST')
+  
+                              //       .attr('enctype','multipart/form-data')
+  
+                              //       .ajaxSubmit({
+  
+                              //          success: function(xhrdata,textStatus,jqXHR){
+  
+                              //            var image_url = xhrdata;
+  
+                              //            console.log( 'URL: ' + image_url );
+  
+                              //            insert_image( image_url );
+  
+                              //          }
+  
+                              //        });
+  
+                          },
+  
+              onKeyEnter: function() {
+  
+                              return false; // swallow enter
+  
+                          }
+  
+              */
+  
+          })
+  
+          .change(function(){
+  
+              if( typeof console != 'undefined' )
+  
+                  console.log( 'change' );
+  
+          })
+  
+          .focus(function(){
+  
+              if( typeof console != 'undefined' )
+  
+                  console.log( 'focus' );
+  
+          })
+  
+          .blur(function(){
+  
+              if( typeof console != 'undefined' )
+  
+                  console.log( 'blur' );
+  
+          });
+  
+      });
+  
+  
+  
+      // // Demo-Buttons
+  
+      $('#editor3-bold').click(function(){
+  
+          $('#editor3').wysiwyg('bold');
+  
+          return false;
+  
+      });
+  
+      $('#editor3-red').click(function(){
+  
+          $('#editor3').wysiwyg('highlight','#ff0000');
+  
+          return false;
+  
+      });
+  
+      $('#editor3-sethtml').click(function(){
+  
+          $('#editor3').wysiwyg('html', 'This is a the html text');
+  
+          return false;
+  
+      });
+  
+      $('#editor3-inserthtml').click(function(){
+  
+          $('#editor3').wysiwyg('inserthtml', 'This is some text');
+  
+          return false;
+  
+      });
+  
+  
+  
+      // Raw editor
+  
+      var option = {
+  
+          element: $('#editor1').get(0),
+  
+          onkeypress: function( code, character, shiftKey, altKey, ctrlKey, metaKey ) {
+  
+                          if( typeof console != 'undefined' )
+  
+                              console.log( 'RAW: '+character+' key pressed' );
+  
+                      },
+  
+          onselection: function( collapsed, rect, nodes, rightclick ) {
+  
+                          if( typeof console != 'undefined' && rect )
+  
+                              console.log( 'RAW: selection rect('+rect.left+','+rect.top+','+rect.width+','+rect.height+'), '+nodes.length+' nodes' );
+  
+                      },
+  
+          onplaceholder: function( visible ) {
+  
+                          if( typeof console != 'undefined' )
+  
+                              console.log( 'RAW: placeholder ' + (visible ? 'visible' : 'hidden') );
+  
+                      }
+  
+      };
+  
+      // var wysiwygeditor = wysiwyg( option );
+  
+      //wysiwygeditor.setHTML( '<html>' );
+  
+  });
+  
+  </script>
+  
+  <style>
+  
+  body {
+  
+      font-family: Arial,Verdana;
+  
+  }
+  
+  p {
+  
+      margin: 0;
+  
+      padding: 0;
+  
+  }
+  
+  .button {
+  
+      -moz-user-select: none;
+  
+      -webkit-touch-callout: none;
+  
+      -webkit-user-select: none;
+  
+      -khtml-user-select: none;
+  
+      -ms-user-select: none;
+  
+      user-select: none;
+  
+  }
+  
+  /* CSS for the font-name + font-size plugin */
+  
+  .wysiwyg-toolbar-list {
+  
+      max-height: 16em;
+  
+      overflow: auto;
+  
+      overflow-x: hidden;
+  
+      overflow-y: scroll;
+  
+  }
+  
+  .wysiwyg-toolbar-list a,
+  
+  .wysiwyg-toolbar-list a:link,
+  
+  .wysiwyg-toolbar-list a:visited {
+  
+      display: block;
+  
+      color: black;
+  
+      padding: 5px 10px;
+  
+      text-decoration: none;
+  
+      cursor: pointer;
+  
+  }
+  
+  .wysiwyg-toolbar-list a:hover {
+  
+      color: HighlightText;
+  
+      background-color: Highlight;
+  
+  }
+  
+  /* CSS for the smiley plugin */
+  
+  .wysiwyg-toolbar-smilies {
+  
+      padding: 10px;
+  
+      text-align: center;
+  
+      white-space: normal;
+  
+  }
+  
+  .wysiwyg-toolbar-smilies img {
+  
+      display: -moz-inline-stack; /* inline-block: http://blog.mozilla.org/webdev/2009/02/20/cross-browser-inline-block/ */
+  
+      display: inline-block;
+  
+      *display: inline;
+  
+  }
+  
+  </style>
+  <script type="text/javascript" src="/tags/js/tag.js"></script>
+  <script type="text/javascript">
+    //添加标签
+    var tag = new Tag("InputTags");
+    tag.initView();
+    
+    
+  </script>
+</html>

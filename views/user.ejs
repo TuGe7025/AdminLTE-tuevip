@@ -147,4 +147,31 @@ desired effect
      Both of these plugins are recommended to enhance the
      user experience. -->
 </body>
+<script>
+  $(function(){
+   var token = sessionStorage.getItem('istoken');
+   $.ajax({  
+       type: "POST",  
+       url: "/checkUser",
+       contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+       data: {
+         token:token
+       },
+       dataType: "json",  
+       success: function(data){
+           switch(data.status){
+               case 10010:
+                   window.location.href = "/login"
+                   break;
+               default:
+                   // window.location.href = "/"
+                   break;
+           }
+       },  
+       error:function(error){  
+           console.log(error);  
+       }  
+     });
+ })
+</script>
 </html>

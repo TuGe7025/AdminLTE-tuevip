@@ -111,37 +111,7 @@ desired effect
     </section>
 
     <!-- Main content -->
-    <div class="commentAll">
-      <!--评论区域 begin-->
-      <div class="reviewArea clearfix">
-          <div class="flex-text-wrap"><pre class="pre"><span></span><br></pre><textarea class="content comment-input" placeholder="Please enter a comment…" onkeyup="keyUP(this)"></textarea></div>
-          <a href="javascript:;" class="plBtn">评论</a>
-      </div>
-      <!--评论区域 end-->
-      <!--回复区域 begin-->
-      <div class="comment-show">
-          <div class="comment-show-con clearfix">
-              <div class="comment-show-con-img pull-left"><img src="images/header-img-comment_03.png" alt=""></div>
-              <div class="comment-show-con-list pull-left clearfix">
-                  <div class="pl-text clearfix">
-                      <a href="#" class="comment-size-name">张三 : </a>
-                      <span class="my-pl-con">&nbsp;来啊 造作啊!</span>
-                  </div>
-                  <div class="date-dz">
-                      <span class="date-dz-left pull-left comment-time">2017-5-2 11:11:39</span>
-                      <div class="date-dz-right pull-right comment-pl-block">
-                          <a href="javascript:;" class="removeBlock">删除</a>
-                          <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a>
-                          <span class="pull-left date-dz-line">|</span>
-                          <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">666</i>)</a>
-                      </div>
-                  </div>
-                  <div class="hf-list-con"></div>
-              </div>
-          </div>
-      </div>
-      <!--回复区域 end-->
-  </div>
+    
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -174,103 +144,29 @@ desired effect
 </body>
 <script>
   $(function(){
-    $('.huifu').on('click', function(){
-      $(this).after(`<input type="text" id="comment_send2" name="conetnt" class="form-control input-sm" placeholder="请输入您要评论的内容">`)
-
-      $('#comment_send2').on('keydown',function () {
-      if (event.keyCode == 13){
-        var content = $('#comment_send2').val();
-        var user_name = $('#user_name').html();
-        var parent_comment_uid = 'tuge';
-      
-      $.ajax({  
-          type: "POST",  
-          url: "/comment",
-          contentType: 'application/x-www-form-urlencoded;charset=utf-8',  
-          data: {
-            content: content,
-            from_uid: user_name,
-            text_id: '7025',
-            comment_level: '2',
-            parent_uid: 'tuge'
-          },  
-          dataType: "json",  
-          success: function(data){
-              switch(data.code){
-                  case "0":
-                      console.log('发送失败');
-                      break;
-                  default:
-                      console.log(data);
-            //           $('.box-comments').parent().append(`<div class="box-comment">
-            //   <!-- User image -->
-            //   <img class="img-circle img-sm" src="${data.userimg}" alt="用户头像">
-
-            //   <div class="comment-text">
-            //         <span class="username">
-            //           ${data.data.from_uid}
-            //           <span class="text-muted pull-right">${data.data.create_time}</span>
-            //         </span>${data.data.content}
-            //   </div>
-            //   <!-- /.comment-text -->
-            // </div>`) 
-                      $('#comment_send').val('');
-                      // window.location.href = '/'
-                      break;
-              }
-          },  
-          error:function(error){  
-              console.log(error);  
-          }  
-        });
-      }
-    });
-    })
-    
-    $('#comment_send').on('keydown',function () {
-      if (event.keyCode == 13){
-        var content = $('#comment_send').val();
-        var user_name = $('#user_name').html();
-      $.ajax({  
-          type: "POST",  
-          url: "/comment",
-          contentType: 'application/x-www-form-urlencoded;charset=utf-8',  
-          data: {
-            content: content,
-            from_uid: user_name,
-            text_id: '7025'
-          },  
-          dataType: "json",  
-          success: function(data){
-              switch(data.code){
-                  case "0":
-                      console.log('发送失败');
-                      break;
-                  default:
-                      console.log(data);
-                      $('.box-comments').append(`<div class="box-comment">
-              <!-- User image -->
-              <img class="img-circle img-sm" src="${data.userimg}" alt="用户头像">
-
-              <div class="comment-text">
-                    <span class="username">
-                      ${data.data.from_uid}
-                      <span class="text-muted pull-right">${data.data.create_time}</span>
-                    </span>${data.data.content}
-              </div>
-              <!-- /.comment-text -->
-            </div>`) 
-                      $('#comment_send').val('');
-                      // window.location.href = '/'
-                      break;
-              }
-          },  
-          error:function(error){  
-              console.log(error);  
-          }  
-        });
-      }
-    });
+    var token = sessionStorage.getItem('istoken');
+    $.ajax({  
+        type: "POST",  
+        url: "/checkUser",
+        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+        data: {
+          token:token
+        },
+        dataType: "json",  
+        success: function(data){
+            switch(data.status){
+                case 10010:
+                    window.location.href = "/login"
+                    break;
+                default:
+                    // window.location.href = "/"
+                    break;
+            }
+        },  
+        error:function(error){  
+            console.log(error);  
+        }  
+      });
   })
 </script>
 
