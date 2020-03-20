@@ -178,7 +178,7 @@ desired effect
                 width: 300px;height: 30px;"><%= data[i].content %></td>
                 <td class="">
                   <a href="/journal/update?id=<%- data[i]._id %>"><button type="button" class="btn btn-warning" >修改</button></a>
-                  <a class="btn btn-danger">删除</a>
+                  <a href="/journal/delete?id=<%- data[i]._id %>" class="btn btn-danger">删除</a>
                 </td>
               </tr>
               <%}%>

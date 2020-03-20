@@ -62,15 +62,14 @@ router.post('/add', function(req, res, next) {
     }
     const articles = new Articles(json)
     sql.insert(articles).then(()=>{})
-    console.log(json)
     res.send({code: '1',data: json})
-    // sql.find(Articles,{_id: _id}).then((data)=> {
-    //   if (data.length == 0) {
-    //   }
-    //     // sql.update(articles,{_id:_id},{$set:{title_id: title_id,content: content,from_uid: from_uid,status: status,praise_num: praise_num,}}).then(()=>{})
-    // })
-    // res.send({code:'1'});
   });
+  router.get('/delete', function(req, res, next) {
+    var _id = ObjectId(req.query.id);
+    sql.delete(Articles,{_id:_id}).then(() => {
+        res.redirect('/journal')
+    })
+  })
   function getMyDate(str) {
         var oDate = new Date(str),
         oYear = oDate.getFullYear(),

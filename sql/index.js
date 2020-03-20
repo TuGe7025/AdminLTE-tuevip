@@ -7,7 +7,8 @@ module.exports = {
             })
         })
     },
-    delete: (col, type, deleteData) => {
+    delete: (col,  deleteData, type) => {
+        type = type || 'deleteOne';
         return new Promise((resolve, reject) => {
             col[type](deleteData, err => {
                 if (err) throw err;

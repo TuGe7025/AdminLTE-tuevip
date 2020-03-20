@@ -1283,7 +1283,7 @@ body {
   font-family: FontAwesome;
 }
 .nav-menu li a {
-  color: #333;
+  color: #fe9494;
   display: block;
 }
 .nav-menu li .sub-menu {
@@ -1444,7 +1444,11 @@ body {
  *
  * ********************* */ 
 .banner-slider-cover {
+  position: relative;
+  top: -107px;
+  left: 0;
   min-height: 900px;
+  background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584685276090&di=27a6bc0baf723f30097adba0f1bad136&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2F0a6fdb9107e726c612610661d33003239bf2c120.jpg) 100% 100% no-repeat;
   padding: 15px 0px 25px 0px;
 }
 @media only screen and (max-width: 991px) {
