@@ -18,6 +18,7 @@ router.get('/update', function(req, res, next) {
     sql.find(Articles,{_id:_id},{}).then((odata) => {
         let d = JSON.stringify(odata[0]);
         let data = JSON.parse(d);
+        console.log(data.classify)
         res.render('articlesUpdate', { aindex:2,
             title_id: data.title_id, // 标题id
             content: data.content, // 内容
@@ -27,6 +28,7 @@ router.get('/update', function(req, res, next) {
             tagslabel: data.tagslabel, // 标签
             praise_num: data.praise_num, // 点赞量
             create_time: data.create_time, // 时间
+            num: data.num, // 时间
             _id:data._id
         })
     }) 
@@ -48,6 +50,8 @@ router.post('/add', function(req, res, next) {
     let data = JSON.parse(req.body.text);
     var time = new Date().getTime();
     var praise_num = praise_num ? praise_num : '0'; 
+    var num = num ? num : '0'; 
+    var comments = comments ? comments : '0'; 
     var status = status ? status : '1';
     let json = {
         title_id: data.title_id, // 文章标题id
@@ -58,6 +62,8 @@ router.post('/add', function(req, res, next) {
         tagslabel: data.tagslabel, // 标签
         status: '1', // 评论状态 (是否被删除了)
         praise_num: '0', // 评论点赞量
+        num: num, // 文章点击量
+        comments: comments, // 文章评论量
         create_time: getMyDate(parseInt(time)) // 评论时间
     }
     const articles = new Articles(json)

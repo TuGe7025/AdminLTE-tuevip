@@ -15,9 +15,22 @@ var registerRouter = require('./routes/register');
 var emailRouter = require('./routes/email');
 var commentRouter = require('./routes/comment');
 var homeRouter = require('./routes/home');
+var upvideoRouter = require('./routes/upvideo');
+var videoinfoRouter = require('./routes/videoinfo');
 
 var app = express();
-
+app.all("*",function(req,res,next){
+  //设置允许跨域的域名，*代表允许任意域名跨域
+  res.header("Access-Control-Allow-Origin","http://localhost:8080");
+  //允许的header类型
+  res.header("Access-Control-Allow-Headers","content-type");
+  //跨域允许的请求方式 
+  res.header("Access-Control-Allow-Methods","DELETE,PUT,POST,GET,OPTIONS");
+  if (req.method.toLowerCase() == 'options')
+      res.send(200);  //让options尝试请求快速结束
+  else
+      next();
+})
 // view engine setup
 app.use(session({
   secret : "1234", //加密session，随便写
@@ -39,13 +52,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/userinfo', usersRouter);
 app.use('/journal', journalRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/email', emailRouter);
 app.use('/comment', commentRouter);
 app.use('/home', homeRouter);
+app.use('/upvideo', upvideoRouter);
+app.use('/videoinfo', videoinfoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

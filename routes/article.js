@@ -11,6 +11,8 @@ router.post('/', function(req, res, next) {
   let {title_id,content,from_uid,praise_num,status,article_id} = req.body;
   var time = new Date().getTime();
   praise_num = praise_num ? praise_num : '0'; 
+  num = num ? num : '0'; 
+  comments = comments ? comments : '0'; 
   status = status ? status : '1';
   if(article_id) {
     var _id = ObjectId(article_id);
@@ -19,11 +21,13 @@ router.post('/', function(req, res, next) {
   }
   let json = {
       title_id: title_id, // 文章标题id
-      content: content, // 评论内容
-      from_uid: from_uid, // 评论用户
-      status: status, // 评论状态 (是否被删除了)
-      praise_num: praise_num, // 评论点赞量
-      create_time: getMyDate(parseInt(time)) // 评论时间
+      content: content, // 文章内容
+      from_uid: from_uid, // 用户
+      status: status, // 文章状态 (是否被删除了)
+      praise_num: praise_num, // 文章点赞量
+      num: num, // 文章点击量
+      comments: comments, // 文章评论量
+      create_time: getMyDate(parseInt(time)) // 文章时间
   }
   const articles = new Articles(json)
   sql.find(Articles,{_id: _id}).then((data)=> {

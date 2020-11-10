@@ -5,12 +5,11 @@ const jwt = require('jsonwebtoken');//token
 const sql = require('../sql');
 const User = require('../sql/model/users');
 /* GET login page. */
-router.get('/', function(req, res, next) {
-  res.render('login',{yes:""});
-});
+// router.get('/', function(req, res, next) {
+//   res.render('login',{yes:""});
+// });
 // 登录用户
 router.post('/', (req, res) => {
-  console.log(req.body)
   let email = req.body.email;
   let pass = req.body.password;
   sql.find(User,{email: email}).then((data)=> {
@@ -20,15 +19,14 @@ router.post('/', (req, res) => {
           let token = jwt.sign(content, secretOrPrivateKey, {
               expiresIn: 60*60*1
           });
-          console.log(data)
           if (!bcrypt.compareSync(pass, data[0].password)) {
-            res.send({code: '1', text: '密码错误'});
+            res.send({code: '-1', text: '密码错误'});
         } else {
           // req.session.islogin = token;
-          res.send({code: 'ok', token: token,username: data[0].username, email: data[0].email })
+          res.send({code: '1', token: token,username: data[0].username, email: data[0].email })
         }
       } else {
-          res.send({code: '0', text: '账户不存在!'});
+          res.send({code: '2', text: '账户不存在!'});
       }
   })
 
